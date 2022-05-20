@@ -17,6 +17,11 @@ class AlunoService {
     }
   }
 
+  postAluno(objeto) {
+    this.repositorio.push(objeto);
+    return 201;
+  }
+
 }
 
 module.exports = { AlunoService };

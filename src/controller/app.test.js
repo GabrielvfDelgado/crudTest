@@ -1,9 +1,7 @@
-
-
 describe('Test routes GET| aluno/:nome', () => {
 
   it('Get Aluno Sucess', () => {
-    const { AlunoService } = require('../model/alunoService');
+    const { AlunoService } = require('../service/alunoService');
     const { alunoRepositorioMock } = require('../../test/mock/alunoRepositorioMock');
     let service = new AlunoService(alunoRepositorioMock);
     let result = service.getAluno("mello");
@@ -17,7 +15,7 @@ describe('Test routes GET| aluno/:nome', () => {
   });
 
   it('Get Aluno Fail', () => {
-    const { AlunoService } = require('../model/alunoService');
+    const { AlunoService } = require('../service/alunoService');
     const { alunoRepositorioMock } = require('../../test/mock/alunoRepositorioMock');
     let service = new AlunoService(alunoRepositorioMock);
     let result = service.getAluno("gabriel");
@@ -30,7 +28,7 @@ describe('Test routes GET| aluno/:nome', () => {
 
 describe('Test routes GET| matricula/:valor', () => {
   it('Get Matricula Sucess', () => {
-    const { MatriculaService } = require('../model/matriculaService');
+    const { MatriculaService } = require('../service/matriculaService');
     const { matriculaRepositorioMock } = require('../../test/mock/matriculaRepositorioMock');
     let service = new MatriculaService(matriculaRepositorioMock);
     let result = service.getMatricula("1111");
@@ -45,7 +43,7 @@ describe('Test routes GET| matricula/:valor', () => {
 
 describe('Test routes GET| professor/:nome', () => {
   it('Get Matricula Sucess', () => {
-    const { ProfessorService } = require('../model/professorService');
+    const { ProfessorService } = require('../service/professorService');
     const { professorRepositorioMock } = require('../../test/mock/professorRepositorioMock');
     let service = new ProfessorService(professorRepositorioMock);
     let result = service.getProfessor("eduardo");
@@ -55,6 +53,38 @@ describe('Test routes GET| professor/:nome', () => {
       senha: '852',
       cpf: '111.113.113-20',
       materia: 'historia'
+    });
+  });
+});
+
+
+describe('Test routes POST| aluno/', () => {
+
+  it('Post Aluno Sucess', () => {
+    const { AlunoService } = require('../service/alunoService');
+    const { alunoRepositorioMock } = require('../../test/mock/alunoRepositorioMock');
+    let service = new AlunoService(alunoRepositorioMock);
+    let result = service.postAluno(
+      {
+        nome: 'gustavo',
+        senha: '5555',
+        cpf: '111.123.123-20'
+      });
+
+    expect(result).toEqual(201);
+  });
+
+  it('Get Aluno Sucess after Post', () => {
+    const { AlunoService } = require('../service/alunoService');
+    const { alunoRepositorioMock } = require('../../test/mock/alunoRepositorioMock');
+    let service = new AlunoService(alunoRepositorioMock);
+    let result = service.getAluno("gustavo");
+
+    expect(result.status).toEqual(200);
+    expect(result.aluno).toEqual({
+      nome: 'gustavo',
+      senha: '5555',
+      cpf: '111.123.123-20'
     });
   });
 });
