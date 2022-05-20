@@ -6,7 +6,7 @@ class AlunoService {
   }
 
   getAluno(nome) {
-    let existealuno = this.repositorio.filter(res =>
+    const existealuno = this.repositorio.filter(res =>
       res.nome == nome
     );
 
