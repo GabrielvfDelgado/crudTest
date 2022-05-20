@@ -41,3 +41,20 @@ describe('Test routes GET| matricula/:valor', () => {
     });
   });
 });
+
+
+describe('Test routes GET| professor/:nome', () => {
+  it('Get Matricula Sucess', () => {
+    const { ProfessorService } = require('../model/professorService');
+    const { professorRepositorioMock } = require('../../test/mock/professorRepositorioMock');
+    let service = new ProfessorService(professorRepositorioMock);
+    let result = service.getProfessor("eduardo");
+    expect(result.status).toEqual(200);
+    expect(result.professor).toEqual({
+      nome: 'eduardo',
+      senha: '852',
+      cpf: '111.113.113-20',
+      materia: 'historia'
+    });
+  });
+});
